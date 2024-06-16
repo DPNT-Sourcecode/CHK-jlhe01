@@ -76,8 +76,8 @@ class TestCheckout():
         assert checkout_solution.checkout("A") == 50
 
         # test item A where 3 multi discount is always cheaper (even though sometimes 5 multi might be available)
-        assert checkout_solution.checkout("AAA") == 130
-        assert checkout_solution.checkout("AAAAAA") == 260
+        assert checkout_solution.checkout("AAA") == 130 # 130 vs 150
+        assert checkout_solution.checkout("AAAAAA") == 260 # 260 vs 150
         assert checkout_solution.checkout("AAAAAAAA") == 360
 
         # test item A 5 multi (discount)
@@ -122,6 +122,7 @@ class TestCheckout():
     def test_invalid(self):
         # test an invalid cart
         assert checkout_solution.checkout("ABZCDE") == -1
+
 
 
 

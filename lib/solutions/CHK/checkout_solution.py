@@ -67,18 +67,10 @@ def checkout(sku: str) -> int:
     total_cost = 0
     for item, quantity in counts.items():
         if item == "A":
-            # 3 multi discount
-            suggested_cost_3_bundle = discounted_price_calculator(quantity=quantity, original_price=50, num_required_for_discount=3, discount_bundle_price=130)
-
-            # 5 multi discount (and possibly the 3 multi discount as well)
-            suggested_cost_5_bundle = (quantity // 5) * 200
-            suggested_cost_5_bundle += discounted_price_calculator(quantity=quantity % 5, original_price=50, num_required_for_discount=3, discount_bundle_price=130)
-
-            suggested_cost = min(suggested_cost_3_bundle, suggested_cost_5_bundle)
-
-            # add whichever gives the best deal i.e. favours the customers
+            # 5 multi discount (and possibly the 3 multi discount as well), its always better to use the 5 deal if you can
+            suggested_cost = (quantity // 5) * 200
+            suggested_cost += discounted_price_calculator(quantity=quantity % 5, original_price=50, num_required_for_discount=3, discount_bundle_price=130)
             total_cost += suggested_cost
-
         elif item == "B":
             # always better to get a B free then possibly use the 2 multi discount
             total_cost += discounted_price_calculator(quantity=counts.get('E', 0) // 2, original_price=30, num_required_for_discount=2, discount_bundle_price=45)
@@ -92,5 +84,6 @@ def checkout(sku: str) -> int:
             return -1 
     
     return total_cost
+
 
 
