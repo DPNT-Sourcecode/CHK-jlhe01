@@ -167,7 +167,7 @@ def checkout(sku: str) -> int:
 # | Z    | 50    |                        |
 # +------+-------+------------------------+
 
-class GetOneFreeDeal:
+class FreeItemDeal:
     item_label_to_buy: str
     quantity_need_to_buy: int 
 
@@ -176,7 +176,7 @@ class BundleDeal:
     bundle_price: int 
 
 class ItemPricing:
-    def __int__(self, item: str, original_price: int, bundle_deals: t.Optional[t.List[BundleDeal]] = None, free_item_deal: t.Optional[GetOneFreeDeal]= None):
+    def __int__(self, item: str, original_price: int, bundle_deals: t.Optional[t.List[BundleDeal]] = None, free_item_deal: t.Optional[FreeItemDeal]= None):
         self.item = item
         self.item_original_price = original_price
         self.bundle_deals = bundle_deals
@@ -187,20 +187,17 @@ class ItemPricing:
         if self.free_item_deal:
             quantity -= quantities.get(self.free_item_deal.item_label_to_buy, 0)
 
-        if bundle_deals: 
-            for deal in sorted(bundle_deals):
+        cost = 0
+        if self.bundle_deals:
+            for deal in sorted(self.bundle_deals):
                 num_bundles = quantity // deal.size
-                num_leftover =  quantity % deal.size
+                cost += num_bundles * deal.bundle_price
+                quantity =  quantity % deal.size
+
+        return cost + (quantity * self.item_original_price) # TODO this only works if the deal with a bigger size is better price per item?
 
 
-        return quantity * self.item_original_price
-
-        def discounted_price_calculator(quantity: int, original_price: int, num_required_for_discount: int, discount_bundle_price: int) -> int:
-            num_bundles = quantity // num_required_for_discount
-            num_leftover =  quantity % num_required_for_discount
-            return (num_leftover * original_price) + (num_bundles * discount_bundle_price)
-
-# pricing_mapping = {"A": 50, "B": 30, "C": 20, "D": 15, "E", "F", "G", "H", "I", "J", "K", "L", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
+pricing_mapping = {"A": 50, "B": 30, "C": 20, "D": 15, "E", "F", "G", "H", "I", "J", "K", "L", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
 
 
 def checkout(sku: str) -> int:
@@ -214,3 +211,4 @@ def checkout(sku: str) -> int:
         else:
             return -1 
     return total_cost
+
