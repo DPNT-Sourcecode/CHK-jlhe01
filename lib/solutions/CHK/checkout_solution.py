@@ -71,19 +71,24 @@ def checkout(sku: str) -> int:
             # add whichever gives the best deal i.e. favours the customers
             total_cost += suggested_cost
 
-        elif item == "B":
-            if counts.get("E") == 2
-            num_bundles = quantity // 2
-            num_leftover =  quantity % 2
-            total_cost += (num_leftover * 30) + (num_bundles * 45)         
+        elif item == "B": # TODO need to do a price comparison
+            if counts.get("E") >= 2:
+                pass
+            else:
+                num_bundles = quantity // 2
+                num_leftover =  quantity % 2
+                total_cost += (num_leftover * 30) + (num_bundles * 45)         
         elif item == "C":
             total_cost += 20 * quantity
         elif item == "D":
             total_cost += 15 * quantity
+        elif item == "E": # price E separately to the E logic in the B conditional as we always need to pay for anyway
+            total_cost += 40 * quantity
         else:
             return -1 
     
     return total_cost
+
 
 
 
