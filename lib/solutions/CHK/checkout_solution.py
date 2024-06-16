@@ -167,7 +167,7 @@ def checkout(sku: str) -> int:
 # | Z    | 50    |                        |
 # +------+-------+------------------------+
 
-item_regular_prices = {}
+# item_regular_prices = {"A": 50, "B": 30, "C": 20, "D": 15, "E", "F", "G", "H", "I", "J", "K", "L", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
 
 def checkout(sku: str) -> int:
     counts = Counter(sku) # returns a sorted dictionary of counts
@@ -182,5 +182,6 @@ def checkout(sku: str) -> int:
             total_cost += quantity * item_regular_prices[item]
         else:
             return -1 
+
 
 
