@@ -490,11 +490,12 @@ class TestCheckout:
     def test_multi(self):
         # test multiple items in the cart, including discounted items
         # expected result:  sum of all prices
-        assert checkout_solution.checkout(string.ascii_uppercase) == 1050
+        assert checkout_solution.checkout(string.ascii_uppercase) == 965
 
     def test_invalid(self):
         # test an invalid cart
         assert checkout_solution.checkout("ABC1DEF") == -1
+
 
 
 

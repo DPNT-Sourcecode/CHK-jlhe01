@@ -246,7 +246,7 @@ pricing_mapping = {
     "F": ItemPricing("F", 10, [BundleDeal(3, 20)]),
     "G": ItemPricing("G", 20),
     "H": ItemPricing("H", 10, [BundleDeal(5, 45), BundleDeal(10, 80)]),
-    "I": ItemPricing("I", 30),
+    "I": ItemPricing("I", 35),
     "J": ItemPricing("J", 60),
     "K": ItemPricing("K", 80, [BundleDeal(2, 150)]),
     "L": ItemPricing("L", 90),
@@ -276,3 +276,4 @@ def checkout(sku: str) -> int:
         else:
             return -1
     return total_cost
+
