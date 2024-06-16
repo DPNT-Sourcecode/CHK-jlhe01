@@ -231,7 +231,3 @@ class TestCheckout():
         assert checkout_solution.checkout("ABZCDEF") == -1
 
 
-
-
-
-

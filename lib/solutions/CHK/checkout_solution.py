@@ -182,6 +182,3 @@ def checkout(sku: str) -> int:
             total_cost += quantity * item_regular_prices[item]
         else:
             return -1 
-
-
-
