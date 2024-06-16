@@ -405,6 +405,8 @@ def checkout(sku: str) -> int:
     total_num_in_group = sum([counts[item] for item in group_deal.group_items])
 
     for item in group_items:
+
+        counts[item] -= 
         total_cost += 45
 
     for item in counts.keys():
@@ -413,6 +415,7 @@ def checkout(sku: str) -> int:
         else:
             return -1
     return total_cost
+
 
 
 
