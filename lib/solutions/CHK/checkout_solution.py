@@ -397,12 +397,17 @@ def checkout(sku: str) -> int:
     total_cost = 0
 
     # first handle the group deal
+    # hardcoded most expensive to least expensive
+    ["Z", "S", "T", "Y", "X"]
+    group_deal = GroupDeal(["S", "T", "X", "Y", "Z"], 3, 45)
+
     for item in counts.keys():
         if item.isupper():
             total_cost += pricing_mapping[item].calculate_cost(counts)
         else:
             return -1
     return total_cost
+
 
 
 
