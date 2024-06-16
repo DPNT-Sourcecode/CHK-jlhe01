@@ -157,7 +157,7 @@ def checkout(sku: str) -> int:
 
 
 # -----------------------
-# ---- REQUIREMENT 3 ----
+# ---- REQUIREMENT 4 ----
 # -----------------------
 
 # +------+-------+------------------------+
@@ -198,7 +198,7 @@ class FreeItemDeal:
     required_quantity: int
 
 
-@dataclass(order=True)
+@dataclass(order=True)  # TODO sanity check this works as expected
 class BundleDeal:
     size: int
     bundle_price: int
@@ -232,58 +232,48 @@ class ItemPricing:
                 cost += num_bundles * deal.bundle_price
                 quantity = quantity % deal.size
 
-        return cost + (
-            quantity * self.item_original_price
-        )  # TODO this only works if the deal with a bigger size is better price per item?
+        # TODO this only works if the deal with a bigger size is better price per item?
+        return cost + (quantity * self.item_original_price)
 
 
-# +------+-------+------------------------+
-# | Item | Price | Special offers         |
-# +------+-------+------------------------+
-# | A    | 50    | 3A for 130, 5A for 200 |
-# | B    | 30    | 2B for 45              |
-# | C    | 20    |                        |
-# | D    | 15    |                        |
-# | E    | 40    | 2E get one B free      |
-# | F    | 10    | 2F get one F free      |
+# TODO double check this against the table
+pricing_mapping = {
+    "A": ItemPricing("A", 50, [BundleDeal(3, 130), BundleDeal(5, 200)]),
+    "B": ItemPricing("B", 30, [BundleDeal(2, 45)], FreeItemDeal("E", 2)),
+    "C": ItemPricing("C", 40),
+    "D": ItemPricing("D", 15),
+    "E": ItemPricing("E", 40),
+    "F": ItemPricing("F", 10, [BundleDeal(3, 20)]),
+    "G": ItemPricing("G", 20),
+    "H": ItemPricing("H", 10, [BundleDeal(5, 45), BundleDeal(10, 80)]),
+    "I": ItemPricing("I", 30),
+    "J": ItemPricing("J", 60),
+    "K": ItemPricing("K", 80, [BundleDeal(2, 150)]),
+    "L": ItemPricing("L", 90),
+    "M": ItemPricing("M", 15, None, FreeItemDeal("N", 3)),
+    "N": ItemPricing("N", 40),
+    "O": ItemPricing("0", 10),
+    "P": ItemPricing("P", 50, [BundleDeal(5, 200)]),
+    "Q": ItemPricing("Q", 30, [BundleDeal(3, 80)], FreeItemDeal("R", 3)),
+    "R": ItemPricing("R", 50),
+    "S": ItemPricing("S", 30),
+    "T": ItemPricing("T", 20),
+    "U": ItemPricing("U", 30, [BundleDeal(4, 120)]),
+    "V": ItemPricing("V", 50, [BundleDeal(2, 90), BundleDeal(3, 130)]),
+    "W": ItemPricing("W", 20),
+    "X": ItemPricing("X", 90),
+    "Y": ItemPricing("Y", 10),
+    "Z": ItemPricing("Z", 50),
+}
 
 
 def checkout(sku: str) -> int:
-    pricing_mapping = {
-        "A": ItemPricing("A", 50, [BundleDeal(3, 130), BundleDeal(5, 200)]),
-        "B": ItemPricing("B", 30, [BundleDeal(2, 45)], FreeItemDeal()),
-        "C": ItemPricing("B", 30, [BundleDeal(2, 45)], FreeItemDeal()),
-        "D": ItemPricing("B", 30, [BundleDeal(2, 45)], FreeItemDeal()),
-        "E": ItemPricing("B", 30, [BundleDeal(2, 45)], FreeItemDeal()),
-        "F": ItemPricing("F", 10, [BundleDeal(3, 20)]),
-        "G": ItemPricing("G", 20),
-        "H": ItemPricing("H", 10, [BundleDeal(5, 45), BundleDeal(10, 80)]),
-        "I": ItemPricing("I", 30),
-        "J": ItemPricing("J", 60),
-        "K": ItemPricing("K", 80, [BundleDeal(2, 150)]),
-        "L": ItemPricing("L", 90),
-        "M": ItemPricing("M", 15, None, FreeItemDeal("N", 3)),
-        "N": ItemPricing("N", 40),
-        "O": ItemPricing("0", 10),
-        "P": ItemPricing("P", 50, [BundleDeal(5, 200)]),
-        "Q": ItemPricing("Q", 30, [BundleDeal(3, 80)], FreeItemDeal("R", 3)),
-        "R": ItemPricing("R", 50),
-        "S": ItemPricing("S", 30),
-        "T": ItemPricing("T", 20),
-        "U": ItemPricing("U", 30, [BundleDeal(4, 120)]),
-        "V": ItemPricing("V", 50, [BundleDeal(2, 90), BundleDeal(3, 130)]),
-        "W": ItemPricing("W", 20),
-        "X": ItemPricing("X", 90),
-        "Y": ItemPricing("Y", 10),
-        "Z": ItemPricing("Z", 50),
-    }
-
     counts = Counter(sku)
     total_cost = 0
-
     for item in counts.keys():
         if item.isalpha():
             total_cost += pricing_mapping[item].calculate_cost(counts)
         else:
             return -1
     return total_cost
+
