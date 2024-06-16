@@ -3,7 +3,7 @@ from collections import Counter
 
 # noinspection PyUnusedLocal
 # skus = unicode string
-def checkout(sku: str) -> int:
+def checkout_R1(sku: str) -> int:
     counts = Counter(sku)
     total_cost = 0
     for item, quantity in counts.items():
@@ -24,8 +24,6 @@ def checkout(sku: str) -> int:
     
     return total_cost
 
-
-
 # Our price table and offers: 
 # +------+-------+----------------+
 # | Item | Price | Special offers |
@@ -35,5 +33,6 @@ def checkout(sku: str) -> int:
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
 
 
