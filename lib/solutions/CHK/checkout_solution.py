@@ -192,6 +192,126 @@ from dataclasses import dataclass
 # +------+-------+------------------------+
 
 
+# @dataclass
+# class FreeItemDeal:
+#     item_to_buy: str
+#     required_quantity: int
+
+
+# @dataclass(order=True)
+# class BundleDeal:
+#     size: int
+#     bundle_price: int
+
+
+# class ItemPricing:
+#     def __init__(
+#         self,
+#         item: str,
+#         original_price: int,
+#         bundle_deals: t.Optional[t.List[BundleDeal]] = None,
+#         free_item_deal: t.Optional[FreeItemDeal] = None,
+#     ):
+#         self.item = item
+#         self.item_original_price = original_price
+#         self.bundle_deals = bundle_deals
+#         self.free_item_deal = free_item_deal
+
+#     def calculate_cost(self, quantities: t.Dict[str, int]) -> int:
+#         quantity = quantities[self.item]
+#         if self.free_item_deal:
+#             quantity -= (
+#                 quantities.get(self.free_item_deal.item_to_buy, 0)
+#                 // self.free_item_deal.required_quantity
+#             )
+
+#         cost = 0
+#         if self.bundle_deals:
+#             for deal in sorted(self.bundle_deals, reverse=True):
+#                 num_bundles = quantity // deal.size
+#                 cost += num_bundles * deal.bundle_price
+#                 quantity = quantity % deal.size
+
+#         return cost + (quantity * self.item_original_price)
+
+
+# pricing_mapping = {
+#     "A": ItemPricing("A", 50, [BundleDeal(3, 130), BundleDeal(5, 200)]),
+#     "B": ItemPricing("B", 30, [BundleDeal(2, 45)], FreeItemDeal("E", 2)),
+#     "C": ItemPricing("C", 20),
+#     "D": ItemPricing("D", 15),
+#     "E": ItemPricing("E", 40),
+#     "F": ItemPricing("F", 10, [BundleDeal(3, 20)]),
+#     "G": ItemPricing("G", 20),
+#     "H": ItemPricing("H", 10, [BundleDeal(5, 45), BundleDeal(10, 80)]),
+#     "I": ItemPricing("I", 35),
+#     "J": ItemPricing("J", 60),
+#     "K": ItemPricing("K", 80, [BundleDeal(2, 150)]),
+#     "L": ItemPricing("L", 90),
+#     "M": ItemPricing("M", 15, None, FreeItemDeal("N", 3)),
+#     "N": ItemPricing("N", 40),
+#     "O": ItemPricing("O", 10),
+#     "P": ItemPricing("P", 50, [BundleDeal(5, 200)]),
+#     "Q": ItemPricing("Q", 30, [BundleDeal(3, 80)], FreeItemDeal("R", 3)),
+#     "R": ItemPricing("R", 50),
+#     "S": ItemPricing("S", 30),
+#     "T": ItemPricing("T", 20),
+#     "U": ItemPricing("U", 40, [BundleDeal(4, 120)]),
+#     "V": ItemPricing("V", 50, [BundleDeal(2, 90), BundleDeal(3, 130)]),
+#     "W": ItemPricing("W", 20),
+#     "X": ItemPricing("X", 90),
+#     "Y": ItemPricing("Y", 10),
+#     "Z": ItemPricing("Z", 50),
+# }
+
+
+# def checkout(sku: str) -> int:
+#     counts = Counter(sku)
+#     total_cost = 0
+#     for item in counts.keys():
+#         if item.isupper():
+#             total_cost += pricing_mapping[item].calculate_cost(counts)
+#         else:
+#             return -1
+#     return total_cost
+
+
+# -----------------------
+# ---- REQUIREMENT 5 ----
+# -----------------------
+
+# +------+-------+---------------------------------+
+# | Item | Price | Special offers                  |
+# +------+-------+---------------------------------+
+# | A    | 50    | 3A for 130, 5A for 200          |
+# | B    | 30    | 2B for 45                       |
+# | C    | 20    |                                 |
+# | D    | 15    |                                 |
+# | E    | 40    | 2E get one B free               |
+# | F    | 10    | 2F get one F free               |
+# | G    | 20    |                                 |
+# | H    | 10    | 5H for 45, 10H for 80           |
+# | I    | 35    |                                 |
+# | J    | 60    |                                 |
+# | K    | 70    | 2K for 120                      |
+# | L    | 90    |                                 |
+# | M    | 15    |                                 |
+# | N    | 40    | 3N get one M free               |
+# | O    | 10    |                                 |
+# | P    | 50    | 5P for 200                      |
+# | Q    | 30    | 3Q for 80                       |
+# | R    | 50    | 3R get one Q free               |
+# | S    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
+# | T    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
+# | U    | 40    | 3U get one U free               |
+# | V    | 50    | 2V for 90, 3V for 130           |
+# | W    | 20    |                                 |
+# | X    | 17    | buy any 3 of (S,T,X,Y,Z) for 45 |
+# | Y    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
+# | Z    | 21    | buy any 3 of (S,T,X,Y,Z) for 45 |
+# +------+-------+---------------------------------+
+
+
 @dataclass
 class FreeItemDeal:
     item_to_buy: str
@@ -202,6 +322,12 @@ class FreeItemDeal:
 class BundleDeal:
     size: int
     bundle_price: int
+
+
+@dataclass
+class GroupDeal:
+    group: t.List[str]
+    required_quantity: int
 
 
 class ItemPricing:
@@ -274,4 +400,5 @@ def checkout(sku: str) -> int:
         else:
             return -1
     return total_cost
+
 
