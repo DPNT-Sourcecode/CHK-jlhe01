@@ -402,45 +402,24 @@ def checkout(sku: str) -> int:
     group_items = ["Z", "S", "T", "Y", "X"]
     group_deal = GroupDeal(group_items, 3, 45)
 
-
-
-
-
     suggested_group = []
-    while i < len():
-        
+    while i < len(group_items):
+        while (
+            counts.get(item, 0) != 0 and len(suggested_group) != group_deal.group_size
+        ):
+            counts[item] = counts[item] - 1
+            suggested_group.append(item)
+
         if len(suggested_group) == group_deal.group_size:
-            total_cost += group_deal.group_price 
-            suggested_group = [] # reset suggested group
+            total_cost += group_deal.group_price
+            suggested_group = []  # reset suggested group
 
-        if counts.get(item,0) == 0:
+        if counts.get(item, 0) == 0:
             i += 1
-
 
     if suggested_group:
         for item in suggested_group:
             counts[item] = counts[item] + 1
-
-    total_num_in_group = sum([counts[item] for item in group_deal.group_items])
-
-    i = 0
-    group_size = 0
-    while i < len(group_items):
-        item = group_items[i]
-        if counts.get(item, 0):
-            i += 1
-        else: 
-            if group_size:
-                total_cost +=
-                counts[item] = 
-            total_cost += (counts[item] // group_deal.group_size) * group_deal.group_price 
-            
-            group_size = 
-            counts[item] = 0
-            total_cost = (num_groups // 
-                          
-    if group_size:
-    
 
     for item in counts.keys():
         if item.isupper():
@@ -448,5 +427,6 @@ def checkout(sku: str) -> int:
         else:
             return -1
     return total_cost
+
 
 
