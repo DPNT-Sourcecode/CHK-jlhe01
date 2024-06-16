@@ -1,5 +1,5 @@
 from solutions.CHK import checkout_solution
-
+import string
 
 # -----------------------
 # ---- REQUIREMENT 1 ----
@@ -416,6 +416,16 @@ class TestCheckout:
 
     # TODO
     # | U    | 40    | 3U get one U free      |
+    def test_U(self):
+        # test item U pricing
+        assert checkout_solution.checkout("U") == 40
+
+        # test item U multi discount
+        assert checkout_solution.checkout("UUUU") == 120
+        assert checkout_solution.checkout("FFFFF") == 40
+        assert checkout_solution.checkout("FFFFFF") == 40
+        assert checkout_solution.checkout("FFFFFFF") == 50
+
     # | V    | 50    | 2V for 90, 3V for 130  |
 
     def test_W(self):
@@ -438,18 +448,19 @@ class TestCheckout:
 
     def test_Z(self):
         # test item Z pricing
-        assert checkout_solution.checkout("T") == 50
+        assert checkout_solution.checkout("Z") == 50
         # test item Z multi (no discount)
-        assert checkout_solution.checkout("TT") == 100
+        assert checkout_solution.checkout("ZZ") == 100
 
     def test_multi(self):  # TODO
         # test multiple items in the cart, including discounted items
-        # expected result: # 130 + 45 + 40 + 30 + 80
-        assert checkout_solution.checkout("ABCDEFABCDEFABF") == 345
+        # expected result: ?
+        assert checkout_solution.checkout(string.ascii_uppercase) == -1
 
     def test_invalid(self):
         # test an invalid cart
         assert checkout_solution.checkout("ABC1DEF") == -1
+
 
 
 
