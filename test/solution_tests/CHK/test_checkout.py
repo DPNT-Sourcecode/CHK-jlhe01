@@ -419,18 +419,24 @@ class TestCheckout:
         assert checkout_solution.checkout("QQQQQQ") == 160
 
         # test item Q with R's (no discount)
-        assert checkout_solution.checkout("BE") == 70  # 30 + 40
-        assert checkout_solution.checkout("BBE") == 85  # 45 + 40
+        assert checkout_solution.checkout("QR") == 80  # 30 + 50
+        assert checkout_solution.checkout("QQQR") == 130  # 80 + 50
 
         # test item Q with multiple R's (discounts!)
-        assert checkout_solution.checkout("BEE") == 80  # 0 + 80
-        assert checkout_solution.checkout("BBEE") == 110  # 30 + 2*40
-        assert checkout_solution.checkout("BBBEE") == 125  # 45 + 2*40
-        assert checkout_solution.checkout("BBEEE") == 150  # 30 + 3*40
-        assert checkout_solution.checkout("BBEEEE") == 160  # 0 + 4*40
+        assert checkout_solution.checkout("QRRR") == 80  # 0 + 80
+        assert checkout_solution.checkout("QQQRRR") == 110  # 30 + 2*40
+        assert checkout_solution.checkout("QQQQRRR") == 125  # 45 + 2*40
+        assert checkout_solution.checkout("QQQRRRR") == 150  # 30 + 3*40
+        assert checkout_solution.checkout("QQQRRRRRRRRR") == 450  # 0 + 9*50
 
         # | Q    | 30    | 3Q for 80              |
         # | R    | 50    | 3R get one Q free      |
+
+    def test_R(self):
+        # test item R pricing
+        assert checkout_solution.checkout("R") == 50
+        # test item R multi (no discount)
+        assert checkout_solution.checkout("RR") == 100
 
     def test_S(self):
         # test item S pricing
@@ -490,5 +496,6 @@ class TestCheckout:
     def test_invalid(self):
         # test an invalid cart
         assert checkout_solution.checkout("ABC1DEF") == -1
+
 
 
