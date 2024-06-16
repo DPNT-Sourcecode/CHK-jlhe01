@@ -372,13 +372,50 @@ class TestCheckout:
         pass
         # | K    | 80    | 2K for 150             |
 
-    # | L    | 90    |                        |
-    # | M    | 15    |                        |
-    # | N    | 40    | 3N get one M free      |
-    # | O    | 10    |                        |
-    # | P    | 50    | 5P for 200             |
-    # | Q    | 30    | 3Q for 80              |
-    # | R    | 50    | 3R get one Q free      |
+    def test_L(self):
+        # test item L pricing
+        assert checkout_solution.checkout("L") == 90
+
+        # test item L multi (no discount)
+        assert checkout_solution.checkout("LL") == 180
+
+    def test_M(self):
+        # test item J pricing
+        assert checkout_solution.checkout("M") == 15
+
+        # test item J multi (no discount)
+        assert checkout_solution.checkout("MM") == 30
+
+    def test_N():
+        pass  # TODO
+        # | N    | 40    | 3N get one M free      |
+
+    def test_O(self):
+        # test item 0 pricing
+        assert checkout_solution.checkout("0") == 10
+
+        # test item O multi (no discount)
+        assert checkout_solution.checkout("00") == 20
+
+        # TODO
+        # | P    | 50    | 5P for 200             |
+        # | Q    | 30    | 3Q for 80              |
+        # | R    | 50    | 3R get one Q free      |
+
+    def test_S(self):
+        # test item S pricing
+        assert checkout_solution.checkout("L") == 30
+
+        # test item S multi (no discount)
+        assert checkout_solution.checkout("LL") == 60
+
+    def test_T(self):
+        # test item J pricing
+        assert checkout_solution.checkout("M") == 15
+
+        # test item J multi (no discount)
+        assert checkout_solution.checkout("MM") == 30
+
     # | S    | 30    |                        |
     # | T    | 20    |                        |
     # | U    | 40    | 3U get one U free      |
@@ -397,6 +434,7 @@ class TestCheckout:
     def test_invalid(self):
         # test an invalid cart
         assert checkout_solution.checkout("ABC1DEF") == -1
+
 
 
 
