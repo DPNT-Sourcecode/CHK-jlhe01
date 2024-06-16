@@ -1,6 +1,8 @@
 
 from collections import Counter
 import typing as t 
+from dataclasses import dataclass
+
 # -----------------------
 # ---- REQUIREMENT 1 ----
 # -----------------------
@@ -167,10 +169,12 @@ def checkout(sku: str) -> int:
 # | Z    | 50    |                        |
 # +------+-------+------------------------+
 
+@dataclass
 class FreeItemDeal:
-    item_label_to_buy: str
-    quantity_need_to_buy: int 
+    item_to_buy: str
+    required_quantity: int 
 
+@dataclass
 class BundleDeal:
     size: int 
     bundle_price: int 
@@ -182,10 +186,10 @@ class ItemPricing:
         self.bundle_deals = bundle_deals
         self.free_item_deal = free_item_deal
     
-    def calculate_cost(self, quantities: dict) -> int:
+    def calculate_cost(self, quantities: t.Dict[str, int]) -> int:
         quantity = quantities[self.item]
         if self.free_item_deal:
-            quantity -= quantities.get(self.free_item_deal.item_label_to_buy, 0)
+            quantity -= quantities.get(self.free_item_deal.item_to_buy, 0) // self.free_item_deal.required_quantity
 
         cost = 0
         if self.bundle_deals:
@@ -211,4 +215,5 @@ def checkout(sku: str) -> int:
         else:
             return -1 
     return total_cost
+
 
