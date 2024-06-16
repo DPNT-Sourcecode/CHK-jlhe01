@@ -171,11 +171,13 @@ class GetOneFreeDeal:
 
 
 class 
-class ItemPrice:
+class ItemPricing:
     def __int__(self, item: str, original_price: int, deals: dict, ):
+        self.item = item
         self.item_original_price = original_price
     
-    def calculate_price(self, quantities: int) -> int:
+    def calculate_cost(self, quantities: dict) -> int:
+        quantity = quantities[item]
         if 
 
         return quantity * self.item_original_price
@@ -193,11 +195,8 @@ def checkout(sku: str) -> int:
 
     total_cost = 0
 
-    for item, quantity in counts.items():
-        if item == "A":
-            pass
-
-        elif item.isalpha():
+    for item in counts.keys():
+        if item.isalpha():
             total_cost += quantity * item_regular_prices[item]
         else:
             return -1 
