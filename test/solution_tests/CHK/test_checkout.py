@@ -5,17 +5,32 @@ from solutions.CHK import checkout_solution
 
 class TestCheckout():
     def test_A(self):
-        assert checkout_solution.checkout("") == 3
+        # test item A pricing
+        assert checkout_solution.checkout("A") == 50
+
+        # test item A discount
+        assert checkout_solution.checkout("AAA") == 130
+        assert checkout_solution.checkout("AAAAAA") == 260
+
     def test_B(self):
-        assert checkout_solution.checkout("") == 3
+        # test item B pricing
+        assert checkout_solution.checkout("A") == 3
+
+        # test item B discount
+        assert checkout_solution.checkout("A") == 3    
     def test_C(self):
-        assert checkout_solution.checkout("") == 3
+        # test item C pricing
+        assert checkout_solution.checkout("A") == 3
     def test_D(self):
-        assert checkout_solution.checkout("") == 3
+        # test item D pricing
+        assert checkout_solution.checkout("A") == 3    
     def test_multi(self):
-        assert checkout_solution.checkout("") == 3
+        # test multiple items in the cart, including discounts on A and B
+        assert checkout_solution.checkout("A") == 3    
+        
     def test_invalid(self):
-        assert checkout_solution.checkout("") == 3
+        # test an invalid cart
+        assert checkout_solution.checkout("ABZCD") == -1
 
 
 
@@ -28,5 +43,6 @@ class TestCheckout():
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
 
 
