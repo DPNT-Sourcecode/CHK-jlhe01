@@ -494,4 +494,6 @@ class TestCheckout:
 
     def test_invalid(self):
         # test an invalid cart
-        assert checkout_solution.checkout("ABC1DEF") == -1
+        assert checkout_solution.checkout("ABC1DEF") == -1  # with a digit
+        assert checkout_solution.checkout("ABCaDEF") == -1  # with a letter case letter
+
