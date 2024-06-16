@@ -1,6 +1,6 @@
 
 from collections import Counter
-
+import typing as t 
 # -----------------------
 # ---- REQUIREMENT 1 ----
 # -----------------------
@@ -168,17 +168,18 @@ def checkout(sku: str) -> int:
 # +------+-------+------------------------+
 
 class GetOneFreeDeal:
-    item_label_to_buy:
+    item_label_to_buy: str
     quantity_need_to_buy: int 
 
+class BundleDeal:
+    size: int 
+    bundle_price: int 
 
-
-class MultiDeal:
 
 
 
 class ItemPricing:
-    def __int__(self, item: str, original_price: int, deals: dict, ):
+    def __int__(self, item: str, original_price: int, bundle_deals: t.Optional[t.List[BundleDeal]] = None, free_item_deal: t.Optional[GetOneFreeDeal]= None):
         self.item = item
         self.item_original_price = original_price
     
@@ -207,4 +208,3 @@ def checkout(sku: str) -> int:
         else:
             return -1 
     return total_cost
-
