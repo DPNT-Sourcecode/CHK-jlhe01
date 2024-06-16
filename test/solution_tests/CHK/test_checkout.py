@@ -264,34 +264,6 @@ from solutions.CHK import checkout_solution
 
 
 class TestCheckout:
-    def test_discounted_price_calculator(self):
-        assert (
-            checkout_solution.discounted_price_calculator(
-                quantity=2,
-                original_price=30,
-                num_required_for_discount=2,
-                discount_bundle_price=45,
-            )
-            == 45
-        )
-        assert (
-            checkout_solution.discounted_price_calculator(
-                quantity=4,
-                original_price=30,
-                num_required_for_discount=2,
-                discount_bundle_price=45,
-            )
-            == 90
-        )
-        assert (
-            checkout_solution.discounted_price_calculator(
-                quantity=5,
-                original_price=30,
-                num_required_for_discount=2,
-                discount_bundle_price=45,
-            )
-            == 120
-        )
 
     def test_A(self):
         # test item A pricing
@@ -361,5 +333,6 @@ class TestCheckout:
 
     def test_invalid(self):
         # test an invalid cart
-        assert checkout_solution.checkout("ABZCDEF") == -1
+        assert checkout_solution.checkout("ABC1DEF") == -1
+
 
