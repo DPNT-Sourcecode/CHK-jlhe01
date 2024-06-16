@@ -73,7 +73,7 @@ def checkout(sku: str) -> int:
             total_cost += suggested_cost
         elif item == "B":
             # always better to get a B free then possibly use the 2 multi discount
-            total_cost += discounted_price_calculator(quantity=counts.get('E', 0) // 2, original_price=30, num_required_for_discount=2, discount_bundle_price=45)
+            total_cost += discounted_price_calculator(quantity=quantity - counts.get('E', 0) // 2, original_price=30, num_required_for_discount=2, discount_bundle_price=45)
         elif item == "C":
             total_cost += 20 * quantity
         elif item == "D":
@@ -84,6 +84,7 @@ def checkout(sku: str) -> int:
             return -1 
     
     return total_cost
+
 
 
 
