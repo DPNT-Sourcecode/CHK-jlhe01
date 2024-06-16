@@ -326,8 +326,9 @@ class BundleDeal:
 
 @dataclass
 class GroupDeal:
-    group: t.List[str]
-    required_quantity: int
+    potential_group_items: t.List[str]
+    group_size: int
+    group_price: int
 
 
 class ItemPricing:
@@ -394,11 +395,14 @@ pricing_mapping = {
 def checkout(sku: str) -> int:
     counts = Counter(sku)
     total_cost = 0
+
+    # first handle the group deal
     for item in counts.keys():
         if item.isupper():
             total_cost += pricing_mapping[item].calculate_cost(counts)
         else:
             return -1
     return total_cost
+
 
 
