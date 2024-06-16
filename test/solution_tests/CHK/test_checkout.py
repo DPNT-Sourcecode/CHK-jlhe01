@@ -265,18 +265,6 @@ import string
 
 class TestCheckout:
 
-    # def test_dataclass_ordering(self):
-    #     assert sorted(
-    #         [
-    #             checkout_solution.BundleDeal(3, 130),
-    #             checkout_solution.BundleDeal(5, 200),
-    #         ],
-    #         reverse=True,
-    #     ) == [
-    #         checkout_solution.BundleDeal(5, 200),
-    #         checkout_solution.BundleDeal(3, 130),
-    #     ]
-
     def test_A(self):
         # test item A pricing
         assert checkout_solution.checkout("A") == 50
@@ -345,14 +333,14 @@ class TestCheckout:
         # test item G multi (no discount)
         assert checkout_solution.checkout("GG") == 40
 
-    def test_H(self):  # TODP
-        # test item E pricing
-        assert checkout_solution.checkout("G") == 20
+    def test_H(self):
+        # test item H pricing
+        assert checkout_solution.checkout("H") == 10
 
-        # test item E multi (no discount)
-        assert checkout_solution.checkout("GG") == 40
-
-        # | H    | 10    | 5H for 45, 10H for 80  |
+        # test item H multi discount
+        assert checkout_solution.checkout("HHHHH") == 45
+        assert checkout_solution.checkout("HHHHHHHHHH") == 80
+        assert checkout_solution.checkout("HHHHHHHHHHHHHHH") == 125  # 80 + 45
 
     def test_I(self):
         # test item I pricing
@@ -368,9 +356,15 @@ class TestCheckout:
         # test item J multi (no discount)
         assert checkout_solution.checkout("JJ") == 120
 
-    def test_K():  # TODO
-        pass
+    def test_K():
         # | K    | 80    | 2K for 150             |
+        # test item K pricing
+        assert checkout_solution.checkout("K") == 80
+
+        # test item L multi (no discount)
+        assert checkout_solution.checkout("KK") == 150
+        assert checkout_solution.checkout("KK") == 230
+        assert checkout_solution.checkout("KKKK") == 300
 
     def test_L(self):
         # test item L pricing
@@ -422,7 +416,7 @@ class TestCheckout:
 
         # test item U multi discount
         assert checkout_solution.checkout("UUUU") == 120
-        assert checkout_solution.checkout("FFFFF") == 40
+        assert checkout_solution.checkout("UUUUUU") == 40
         assert checkout_solution.checkout("FFFFFF") == 40
         assert checkout_solution.checkout("FFFFFFF") == 50
 
@@ -460,6 +454,7 @@ class TestCheckout:
     def test_invalid(self):
         # test an invalid cart
         assert checkout_solution.checkout("ABC1DEF") == -1
+
 
 
 
