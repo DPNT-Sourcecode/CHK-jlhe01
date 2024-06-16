@@ -380,28 +380,35 @@ class TestCheckout:
         assert checkout_solution.checkout("MM") == 30
 
         # test item M with N's (no discount)
-        assert checkout_solution.checkout("MNN") == 70  # 30 + 40
+        assert checkout_solution.checkout("MNN") == 95  # 15 + 2*40
 
         # test item M with multiple N's (discounts!)
-        assert checkout_solution.checkout("MNNN") == 80  # 0 + 80
-        assert checkout_solution.checkout("MMNNN") == 110  # 30 + 2*40
-        assert checkout_solution.checkout("BBBEE") == 125  # 45 + 2*40
-        assert checkout_solution.checkout("MMNNNN") == 150  # 30 + 3*40
+        assert checkout_solution.checkout("MNNN") == 120  # 0 + 3*40
+        assert checkout_solution.checkout("MMNNN") == 135  # 15 + 3*40
+        assert checkout_solution.checkout("MMNNNN") == 160  # 15 + 4*40
         assert checkout_solution.checkout("MMNNNNNN") == 160  # 0 + 4*40
 
     def test_N():
         # test item N pricing
-        assert checkout_solution.checkout("N") == 10
-
+        assert checkout_solution.checkout("N") == 40
         # test item N multi (no discount)
-        assert checkout_solution.checkout("NN") == 20
+        assert checkout_solution.checkout("NN") == 80
 
     def test_O(self):
         # test item 0 pricing
         assert checkout_solution.checkout("0") == 10
-
         # test item O multi (no discount)
         assert checkout_solution.checkout("00") == 20
+
+     def test_P(self):
+        # test item P pricing
+        assert checkout_solution.checkout("F") == 10
+
+        # test item P multi discount
+        assert checkout_solution.checkout("FFF") == 20
+        assert checkout_solution.checkout("FFFFF") == 40
+        assert checkout_solution.checkout("FFFFFF") == 40
+        assert checkout_solution.checkout("FFFFFFF") == 50
 
         # TODO
         # | P    | 50    | 5P for 200             |
@@ -466,12 +473,3 @@ class TestCheckout:
     def test_invalid(self):
         # test an invalid cart
         assert checkout_solution.checkout("ABC1DEF") == -1
-
-
-
-
-
-
-
-
-
