@@ -71,16 +71,20 @@ class TestCheckout():
         assert checkout_solution.discounted_price_calculator(quantity=4, original_price=30, num_required_for_discount=2, discount_bundle_price=45) == 90
         assert checkout_solution.discounted_price_calculator(quantity=5, original_price=30, num_required_for_discount=2, discount_bundle_price=45) == 120
 
-    def test_A(self):
+    def test_A(self): # TODO
         # test item A pricing
         assert checkout_solution.checkout("A") == 50
 
-        # test item A multi (discount)
+        # test item A where 3 multi discount is always cheaper (even though sometimes 5 multi might be available)
         assert checkout_solution.checkout("AAA") == 130
         assert checkout_solution.checkout("AAAAAA") == 260
         assert checkout_solution.checkout("AAAAAAAA") == 360
 
-    def test_B(self):
+        # test item A 5 multi (discount)
+
+
+
+    def test_B(self): # TODO
         # test item B pricing
         assert checkout_solution.checkout("B") == 30
 
@@ -102,14 +106,22 @@ class TestCheckout():
 
         # test item D multi (no discount)
         assert checkout_solution.checkout("DD") == 30
+
+    def test_E(self):
+        # test item E pricing
+        assert checkout_solution.checkout("E") == 40
+
+        # test item E multi (no discount)
+        assert checkout_solution.checkout("EE") == 80   
     
     def test_multi(self): # TODO
         # test multiple items in the cart, including discounts on A and B
-        # expected result: 130 + 45 + 40 + 30 
+        # expected result: ?
         assert checkout_solution.checkout("ABCDABCDA") == 245   
         
     def test_invalid(self):
         # test an invalid cart
         assert checkout_solution.checkout("ABZCDE") == -1
+
 
 
