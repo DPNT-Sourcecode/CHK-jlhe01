@@ -357,11 +357,10 @@ class TestCheckout:
         assert checkout_solution.checkout("JJ") == 120
 
     def test_K():
-        # | K    | 80    | 2K for 150             |
         # test item K pricing
         assert checkout_solution.checkout("K") == 80
 
-        # test item L multi (no discount)
+        # test item K multi (discount)
         assert checkout_solution.checkout("KK") == 150
         assert checkout_solution.checkout("KK") == 230
         assert checkout_solution.checkout("KKKK") == 300
@@ -374,15 +373,28 @@ class TestCheckout:
         assert checkout_solution.checkout("LL") == 180
 
     def test_M(self):
-        # test item J pricing
+        # test item M pricing
         assert checkout_solution.checkout("M") == 15
 
-        # test item J multi (no discount)
+        # test item M multi (no discount)
         assert checkout_solution.checkout("MM") == 30
 
+        # test item M with N's (no discount)
+        assert checkout_solution.checkout("MNN") == 70  # 30 + 40
+
+        # test item M with multiple N's (discounts!)
+        assert checkout_solution.checkout("MNNN") == 80  # 0 + 80
+        assert checkout_solution.checkout("MMNNN") == 110  # 30 + 2*40
+        assert checkout_solution.checkout("BBBEE") == 125  # 45 + 2*40
+        assert checkout_solution.checkout("MMNNNN") == 150  # 30 + 3*40
+        assert checkout_solution.checkout("MMNNNNNN") == 160  # 0 + 4*40
+
     def test_N():
-        pass  # TODO
-        # | N    | 40    | 3N get one M free      |
+        # test item N pricing
+        assert checkout_solution.checkout("N") == 10
+
+        # test item N multi (no discount)
+        assert checkout_solution.checkout("NN") == 20
 
     def test_O(self):
         # test item 0 pricing
@@ -454,6 +466,7 @@ class TestCheckout:
     def test_invalid(self):
         # test an invalid cart
         assert checkout_solution.checkout("ABC1DEF") == -1
+
 
 
 
