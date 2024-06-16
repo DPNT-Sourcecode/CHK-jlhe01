@@ -8,7 +8,9 @@ def checkout(sku: str) -> int:
     total_cost = 0
     for item, quantity in counts.items():
         if item == "A":
-            pass
+            num_bundles = quantity // 3
+            num_leftover =  quantity % 3
+            total_cost += (num_leftover * 50) + (num_bundles * 130) 
         elif item == "B":
             pass
         elif item == "C":
@@ -31,6 +33,7 @@ def checkout(sku: str) -> int:
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
 
 
 
