@@ -57,7 +57,7 @@ def checkout(sku: str) -> int:
     counts = Counter(sku) # returns a sorted dictionary of counts
     total_cost = 0
     for item, quantity in counts.items():
-        if item == "A": # TODO COME BACK TO NEED TO DEAL WITH THE CASE WHERE USING BOTH DEALS IS THE BEST
+        if item == "A":
             # 3 multi discount
             num_bundles = quantity // 3
             num_leftover =  quantity % 3
@@ -71,13 +71,12 @@ def checkout(sku: str) -> int:
             # add whichever gives the best deal i.e. favours the customers
             total_cost += suggested_cost
 
-        elif item == "B": # TODO need to do a price comparison
-            if counts.get("E") >= 2:
-                pass
-            else:
-                num_bundles = quantity // 2
-                num_leftover =  quantity % 2
-                total_cost += (num_leftover * 30) + (num_bundles * 45)         
+        elif item == "B":
+            num_free = counts.get('E', 0) // 2 # always better to get a B free then possibly use the discount
+            new_quantity = quantity - num_free
+            num_bundles = new_quantity // 2
+            num_leftover =  new_quantity % 2
+            total_cost += (num_leftover * 30) + (num_bundles * 45)         
         elif item == "C":
             total_cost += 20 * quantity
         elif item == "D":
@@ -88,6 +87,7 @@ def checkout(sku: str) -> int:
             return -1 
     
     return total_cost
+
 
 
 
