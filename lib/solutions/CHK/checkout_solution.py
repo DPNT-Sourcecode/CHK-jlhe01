@@ -168,16 +168,22 @@ def checkout(sku: str) -> int:
 # +------+-------+------------------------+
 
 class GetOneFreeDeal:
+    item_label_to_buy:
+    quantity_need_to_buy: int 
 
 
-class 
+
+class MultiDeal:
+
+
+
 class ItemPricing:
     def __int__(self, item: str, original_price: int, deals: dict, ):
         self.item = item
         self.item_original_price = original_price
     
     def calculate_cost(self, quantities: dict) -> int:
-        quantity = quantities[item]
+        quantity = quantities[self.item]
         if 
 
         return quantity * self.item_original_price
@@ -187,7 +193,7 @@ class ItemPricing:
             num_leftover =  quantity % num_required_for_discount
             return (num_leftover * original_price) + (num_bundles * discount_bundle_price)
 
-# item_regular_prices = {"A": 50, "B": 30, "C": 20, "D": 15, "E", "F", "G", "H", "I", "J", "K", "L", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
+# pricing_mapping = {"A": 50, "B": 30, "C": 20, "D": 15, "E", "F", "G", "H", "I", "J", "K", "L", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
 
 
 def checkout(sku: str) -> int:
@@ -197,7 +203,8 @@ def checkout(sku: str) -> int:
 
     for item in counts.keys():
         if item.isalpha():
-            total_cost += quantity * item_regular_prices[item]
+            total_cost += pricing_mapping[item].calculate_cost(counts)
         else:
             return -1 
+    return total_cost
 
