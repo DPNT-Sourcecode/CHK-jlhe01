@@ -167,10 +167,20 @@ def checkout(sku: str) -> int:
 # | Z    | 50    |                        |
 # +------+-------+------------------------+
 
-
+item_regular_prices = {}
 
 def checkout(sku: str) -> int:
     counts = Counter(sku) # returns a sorted dictionary of counts
+
     total_cost = 0
+
+    for item, quantity in counts.items():
+        if item == "A":
+            pass
+
+        elif item.isalpha():
+            total_cost += quantity * item_regular_prices[item]
+        else:
+            return -1 
 
 
