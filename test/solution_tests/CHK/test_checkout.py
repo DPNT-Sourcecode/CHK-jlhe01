@@ -220,15 +220,16 @@ class TestCheckout():
         assert checkout_solution.checkout("FFFFFF") == 40
         assert checkout_solution.checkout("FFFFFFF") == 50
     
-    def test_multi(self): # TODO
+    def test_multi(self):
         # test multiple items in the cart, including discounts on A and B
         # expected result: # 130 + 45 + 40 + 30 + 80
-        assert checkout_solution.checkout("ABCDEABCDEAB") == 325 
+        assert checkout_solution.checkout("ABCDEFABCDEFABF") == 345 
 
         
-    def test_invalid(self): # TODO
+    def test_invalid(self):
         # test an invalid cart
         assert checkout_solution.checkout("ABZCDEF") == -1
+
 
 
 
