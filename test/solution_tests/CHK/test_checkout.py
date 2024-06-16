@@ -404,36 +404,53 @@ class TestCheckout:
 
     def test_S(self):
         # test item S pricing
-        assert checkout_solution.checkout("L") == 30
-
+        assert checkout_solution.checkout("S") == 30
         # test item S multi (no discount)
-        assert checkout_solution.checkout("LL") == 60
+        assert checkout_solution.checkout("SS") == 60
 
     def test_T(self):
-        # test item J pricing
-        assert checkout_solution.checkout("M") == 15
+        # test item T pricing
+        assert checkout_solution.checkout("T") == 20
+        # test item T multi (no discount)
+        assert checkout_solution.checkout("TT") == 40
 
-        # test item J multi (no discount)
-        assert checkout_solution.checkout("MM") == 30
-
-    # | S    | 30    |                        |
-    # | T    | 20    |                        |
+    # TODO
     # | U    | 40    | 3U get one U free      |
     # | V    | 50    | 2V for 90, 3V for 130  |
-    # | W    | 20    |                        |
-    # | X    | 90    |                        |
-    # | Y    | 10    |                        |
-    # | Z    | 50    |                        |
-    # +------+-------+------------------------+
+
+    def test_W(self):
+        # test item W pricing
+        assert checkout_solution.checkout("W") == 20
+        # test item W multi (no discount)
+        assert checkout_solution.checkout("WW") == 40
+
+    def test_X(self):
+        # test item X pricing
+        assert checkout_solution.checkout("X") == 90
+        # test item X multi (no discount)
+        assert checkout_solution.checkout("XX") == 180
+
+    def test_Y(self):
+        # test item Y pricing
+        assert checkout_solution.checkout("Y") == 10
+        # test item Y multi (no discount)
+        assert checkout_solution.checkout("YY") == 20
+
+    def test_Z(self):
+        # test item Z pricing
+        assert checkout_solution.checkout("T") == 50
+        # test item Z multi (no discount)
+        assert checkout_solution.checkout("TT") == 100
 
     def test_multi(self):  # TODO
-        # test multiple items in the cart, including discounts on A and B
+        # test multiple items in the cart, including discounted items
         # expected result: # 130 + 45 + 40 + 30 + 80
         assert checkout_solution.checkout("ABCDEFABCDEFABF") == 345
 
     def test_invalid(self):
         # test an invalid cart
         assert checkout_solution.checkout("ABC1DEF") == -1
+
 
 
 
