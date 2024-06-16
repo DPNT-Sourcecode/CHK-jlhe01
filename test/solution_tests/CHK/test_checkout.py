@@ -71,18 +71,15 @@ class TestCheckout():
         assert checkout_solution.discounted_price_calculator(quantity=4, original_price=30, num_required_for_discount=2, discount_bundle_price=45) == 90
         assert checkout_solution.discounted_price_calculator(quantity=5, original_price=30, num_required_for_discount=2, discount_bundle_price=45) == 120
 
-    def test_A(self): # TODO
+    def test_A(self):
         # test item A pricing
         assert checkout_solution.checkout("A") == 50
 
-        # test item A where 3 multi discount is always cheaper (even though sometimes 5 multi might be available)
-        assert checkout_solution.checkout("AAA") == 130 # 130 vs 150
-        assert checkout_solution.checkout("AAAAAA") == 260 # 260 vs 150
-        assert checkout_solution.checkout("AAAAAAAA") == 360
-
-        # test item A 5 multi (discount)
-
-
+        # test item A multi discount 
+        assert checkout_solution.checkout("AAA") == 130
+        assert checkout_solution.checkout("AAAAA") == 200
+        assert checkout_solution.checkout("AAAAAA") == 250
+        assert checkout_solution.checkout("AAAAAAAA") == 330 # 200 + 130
 
     def test_B(self): # TODO
         # test item B pricing
@@ -92,6 +89,12 @@ class TestCheckout():
         assert checkout_solution.checkout("BB") == 45
         assert checkout_solution.checkout("BBBB") == 90
         assert checkout_solution.checkout("BBBBB") == 120
+
+        # test item B with E's (discount)
+        assert checkout_solution.checkout("BBE") == 45 # no 
+        
+
+
     
     def test_C(self):
         # test item C pricing
@@ -122,6 +125,7 @@ class TestCheckout():
     def test_invalid(self):
         # test an invalid cart
         assert checkout_solution.checkout("ABZCDE") == -1
+
 
 
 
