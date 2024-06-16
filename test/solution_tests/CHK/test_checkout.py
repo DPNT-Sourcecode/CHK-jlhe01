@@ -131,12 +131,3 @@ class TestCheckout():
     def test_invalid(self):
         # test an invalid cart
         assert checkout_solution.checkout("ABZCDE") == -1
-
-
-
-
-
-
-
-
-
