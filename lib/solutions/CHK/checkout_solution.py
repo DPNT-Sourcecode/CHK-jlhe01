@@ -258,15 +258,6 @@ class ItemPricing:
 # | P    | 50    | 5P for 200             |
 # | Q    | 30    | 3Q for 80              |
 # | R    | 50    | 3R get one Q free      |
-# | S    | 30    |                        |
-# | T    | 20    |                        |
-# | U    | 40    | 3U get one U free      |
-# | V    | 50    | 2V for 90, 3V for 130  |
-# | W    | 20    |                        |
-# | X    | 90    |                        |
-# | Y    | 10    |                        |
-# | Z    | 50    |                        |
-# +------+-------+------------------------+
 
 
 def checkout(sku: str) -> int:
@@ -286,12 +277,12 @@ def checkout(sku: str) -> int:
         "N": ItemPricing("B", 30, [BundleDeal(2, 45)], FreeItemDeal()),
         "O": ItemPricing("B", 30, [BundleDeal(2, 45)], FreeItemDeal()),
         "P": ItemPricing("B", 30, [BundleDeal(2, 45)], FreeItemDeal()),
-        "Q": ItemPricing("B", 30, [BundleDeal(2, 45)], FreeItemDeal()),
-        "R": ItemPricing("B", 30, [BundleDeal(2, 45)], FreeItemDeal()),
-        "S": ItemPricing("B", 30, [BundleDeal(2, 45)], FreeItemDeal()),
-        "T": ItemPricing("B", 30, [BundleDeal(2, 45)], FreeItemDeal()),
-        "U": ItemPricing("B", 30, [BundleDeal(2, 45)], FreeItemDeal()),
-        "V": ItemPricing("B", 30, [BundleDeal(2, 45)], FreeItemDeal()),
+        "Q": ItemPricing("Q", 30, [BundleDeal(2, 45)], FreeItemDeal("R", 3)),
+        "R": ItemPricing("R", 50),
+        "S": ItemPricing("S", 30),
+        "T": ItemPricing("T", 20),
+        "U": ItemPricing("U", 30, [BundleDeal(4, 120)]),
+        "V": ItemPricing("V", 50, [BundleDeal(2, 90), BundleDeal(3, 130)]),
         "W": ItemPricing("W", 20),
         "X": ItemPricing("X", 90),
         "Y": ItemPricing("Y", 10),
@@ -307,6 +298,7 @@ def checkout(sku: str) -> int:
         else:
             return -1
     return total_cost
+
 
 
 
