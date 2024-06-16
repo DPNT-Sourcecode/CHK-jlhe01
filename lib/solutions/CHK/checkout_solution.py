@@ -174,7 +174,7 @@ class FreeItemDeal:
     item_to_buy: str
     required_quantity: int 
 
-@dataclass
+@dataclass(order=True)
 class BundleDeal:
     size: int 
     bundle_price: int 
@@ -201,12 +201,45 @@ class ItemPricing:
         return cost + (quantity * self.item_original_price) # TODO this only works if the deal with a bigger size is better price per item?
 
 
-pricing_mapping = {"A": 50, "B": 30, "C": 20, "D": 15, "E", "F", "G", "H", "I", "J", "K", "L", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
+# +------+-------+------------------------+
+# | Item | Price | Special offers         |
+# +------+-------+------------------------+
+# | A    | 50    | 3A for 130, 5A for 200 |
+# | B    | 30    | 2B for 45              |
+# | C    | 20    |                        |
+# | D    | 15    |                        |
+# | E    | 40    | 2E get one B free      |
+# | F    | 10    | 2F get one F free      |
+# | G    | 20    |                        |
+# | H    | 10    | 5H for 45, 10H for 80  |
+# | I    | 35    |                        |
+# | J    | 60    |                        |
+# | K    | 80    | 2K for 150             |
+# | L    | 90    |                        |
+# | M    | 15    |                        |
+# | N    | 40    | 3N get one M free      |
+# | O    | 10    |                        |
+# | P    | 50    | 5P for 200             |
+# | Q    | 30    | 3Q for 80              |
+# | R    | 50    | 3R get one Q free      |
+# | S    | 30    |                        |
+# | T    | 20    |                        |
+# | U    | 40    | 3U get one U free      |
+# | V    | 50    | 2V for 90, 3V for 130  |
+# | W    | 20    |                        |
+# | X    | 90    |                        |
+# | Y    | 10    |                        |
+# | Z    | 50    |                        |
+# +------+-------+------------------------+
 
 
 def checkout(sku: str) -> int:
-    counts = Counter(sku)
+    pricing_mapping = {"A": ItemPricing("A", 50, [BundleDeal(3, 130), BundleDeal(5, 200)]), "B": 30, "C": 20, "D": 15, "E", "F", "G", "H", "I", "J", "K", "L", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
 
+
+
+
+    counts = Counter(sku)
     total_cost = 0
 
     for item in counts.keys():
@@ -215,5 +248,6 @@ def checkout(sku: str) -> int:
         else:
             return -1 
     return total_cost
+
 
 
