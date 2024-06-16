@@ -136,7 +136,7 @@ from solutions.CHK import checkout_solution
 
 
 # -----------------------
-# ---- REQUIREMENT 2 ----
+# ---- REQUIREMENT 3 ----
 # -----------------------
 
 
@@ -229,6 +229,7 @@ class TestCheckout():
     def test_invalid(self):
         # test an invalid cart
         assert checkout_solution.checkout("ABZCDEF") == -1
+
 
 
 
