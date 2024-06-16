@@ -402,8 +402,10 @@ def checkout(sku: str) -> int:
     group_items = ["Z", "S", "T", "Y", "X"]
     group_deal = GroupDeal(group_items, 3, 45)
 
+    i = 0
     suggested_group = []
     while i < len(group_items):
+        item = group_items[i]
         while (
             counts.get(item, 0) != 0 and len(suggested_group) != group_deal.group_size
         ):
@@ -427,6 +429,7 @@ def checkout(sku: str) -> int:
         else:
             return -1
     return total_cost
+
 
 
 
