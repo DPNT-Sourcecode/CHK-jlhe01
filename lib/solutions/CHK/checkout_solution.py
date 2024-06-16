@@ -373,7 +373,7 @@ pricing_mapping = {
     "H": ItemPricing("H", 10, [BundleDeal(5, 45), BundleDeal(10, 80)]),
     "I": ItemPricing("I", 35),
     "J": ItemPricing("J", 60),
-    "K": ItemPricing("K", 80, [BundleDeal(2, 150)]),
+    "K": ItemPricing("K", 70, [BundleDeal(2, 120)]),
     "L": ItemPricing("L", 90),
     "M": ItemPricing("M", 15, None, FreeItemDeal("N", 3)),
     "N": ItemPricing("N", 40),
@@ -381,14 +381,14 @@ pricing_mapping = {
     "P": ItemPricing("P", 50, [BundleDeal(5, 200)]),
     "Q": ItemPricing("Q", 30, [BundleDeal(3, 80)], FreeItemDeal("R", 3)),
     "R": ItemPricing("R", 50),
-    "S": ItemPricing("S", 30),
+    "S": ItemPricing("S", 20),
     "T": ItemPricing("T", 20),
     "U": ItemPricing("U", 40, [BundleDeal(4, 120)]),
     "V": ItemPricing("V", 50, [BundleDeal(2, 90), BundleDeal(3, 130)]),
     "W": ItemPricing("W", 20),
-    "X": ItemPricing("X", 90),
-    "Y": ItemPricing("Y", 10),
-    "Z": ItemPricing("Z", 50),
+    "X": ItemPricing("X", 17),
+    "Y": ItemPricing("Y", 20),
+    "Z": ItemPricing("Z", 21),
 }
 
 
@@ -427,6 +427,7 @@ def checkout(sku: str) -> int:
         else:
             return -1
     return total_cost
+
 
 
 
