@@ -397,9 +397,15 @@ def checkout(sku: str) -> int:
     total_cost = 0
 
     # first handle the group deal
+
     # hardcoded most expensive to least expensive
-    ["Z", "S", "T", "Y", "X"]
-    group_deal = GroupDeal(["S", "T", "X", "Y", "Z"], 3, 45)
+    group_items = ["Z", "S", "T", "Y", "X"]
+    group_deal = GroupDeal(group_items, 3, 45)
+
+    total_num_in_group = sum([counts[item] for item in group_deal.group_items])
+
+    for item in group_items:
+        total_cost += 45
 
     for item in counts.keys():
         if item.isupper():
@@ -407,6 +413,7 @@ def checkout(sku: str) -> int:
         else:
             return -1
     return total_cost
+
 
 
 
