@@ -265,6 +265,18 @@ from solutions.CHK import checkout_solution
 
 class TestCheckout:
 
+    # def test_dataclass_ordering(self):
+    #     assert sorted(
+    #         [
+    #             checkout_solution.BundleDeal(3, 130),
+    #             checkout_solution.BundleDeal(5, 200),
+    #         ],
+    #         reverse=True,
+    #     ) == [
+    #         checkout_solution.BundleDeal(5, 200),
+    #         checkout_solution.BundleDeal(3, 130),
+    #     ]
+
     def test_A(self):
         # test item A pricing
         assert checkout_solution.checkout("A") == 50
@@ -334,5 +346,6 @@ class TestCheckout:
     def test_invalid(self):
         # test an invalid cart
         assert checkout_solution.checkout("ABC1DEF") == -1
+
 
 

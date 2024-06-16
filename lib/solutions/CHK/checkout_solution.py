@@ -227,7 +227,7 @@ class ItemPricing:
 
         cost = 0
         if self.bundle_deals:
-            for deal in sorted(self.bundle_deals):
+            for deal in sorted(self.bundle_deals, reverse=True):
                 num_bundles = quantity // deal.size
                 cost += num_bundles * deal.bundle_price
                 quantity = quantity % deal.size
@@ -276,5 +276,6 @@ def checkout(sku: str) -> int:
         else:
             return -1
     return total_cost
+
 
 
