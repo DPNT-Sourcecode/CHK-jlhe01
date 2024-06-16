@@ -81,7 +81,7 @@ class TestCheckout():
         assert checkout_solution.checkout("AAAAAA") == 250
         assert checkout_solution.checkout("AAAAAAAA") == 330 # 200 + 130
 
-    def test_B(self): # TODO
+    def test_B(self):
         # test item B pricing
         assert checkout_solution.checkout("B") == 30
 
@@ -90,9 +90,16 @@ class TestCheckout():
         assert checkout_solution.checkout("BBBB") == 90
         assert checkout_solution.checkout("BBBBB") == 120
 
-        # test item B with E's (discount)
-        assert checkout_solution.checkout("BBE") == 45 # no 
-        
+        # test item B with E's (no discount)
+        assert checkout_solution.checkout("BE") == 70 # 30 + 40
+        assert checkout_solution.checkout("BBE") == 85 # 45 + 40
+
+        # test item B with multiple E's (discount)
+        assert checkout_solution.checkout("BEE") ==  80 # 0 + 80
+        assert checkout_solution.checkout("BBEE") ==  120 # 30 + 2*40
+        assert checkout_solution.checkout("BBBEE") ==  120 # 45 + 2*40
+
+
 
 
     
@@ -125,6 +132,7 @@ class TestCheckout():
     def test_invalid(self):
         # test an invalid cart
         assert checkout_solution.checkout("ABZCDE") == -1
+
 
 
 
