@@ -169,26 +169,27 @@ def checkout(sku: str) -> int:
 
 class GetOneFreeDeal:
 
+
 class 
 class ItemPrice:
-    def __int__(self, original_price: int, deals: dict, ):
+    def __int__(self, item: str, original_price: int, deals: dict, ):
         self.item_original_price = original_price
     
-    def calculate_price(self, quantity: int)-> int:
+    def calculate_price(self, quantities: int) -> int:
         if 
 
         return quantity * self.item_original_price
 
         def discounted_price_calculator(quantity: int, original_price: int, num_required_for_discount: int, discount_bundle_price: int) -> int:
-    num_bundles = quantity // num_required_for_discount
-    num_leftover =  quantity % num_required_for_discount
-    return (num_leftover * original_price) + (num_bundles * discount_bundle_price)
+            num_bundles = quantity // num_required_for_discount
+            num_leftover =  quantity % num_required_for_discount
+            return (num_leftover * original_price) + (num_bundles * discount_bundle_price)
 
 # item_regular_prices = {"A": 50, "B": 30, "C": 20, "D": 15, "E", "F", "G", "H", "I", "J", "K", "L", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
 
 
 def checkout(sku: str) -> int:
-    counts = Counter(sku) # returns a sorted dictionary of counts
+    counts = Counter(sku)
 
     total_cost = 0
 
@@ -200,3 +201,4 @@ def checkout(sku: str) -> int:
             total_cost += quantity * item_regular_prices[item]
         else:
             return -1 
+
