@@ -460,7 +460,7 @@ class TestCheckout:
         # test item V multi discount
         assert checkout_solution.checkout("VV") == 90
         assert checkout_solution.checkout("VVV") == 130
-        assert checkout_solution.checkout("VVVVV") == 310  # 130 + 180
+        assert checkout_solution.checkout("VVVVV") == 220  # 90 + 130
         assert checkout_solution.checkout("VVVVVV") == 260
 
     def test_W(self):
@@ -495,12 +495,3 @@ class TestCheckout:
     def test_invalid(self):
         # test an invalid cart
         assert checkout_solution.checkout("ABC1DEF") == -1
-
-
-
-
-
-
-
-
-

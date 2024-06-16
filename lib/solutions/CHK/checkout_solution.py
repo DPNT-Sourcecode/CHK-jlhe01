@@ -198,7 +198,7 @@ class FreeItemDeal:
     required_quantity: int
 
 
-@dataclass(order=True)  # TODO sanity check this works as expected
+@dataclass(order=True)
 class BundleDeal:
     size: int
     bundle_price: int
@@ -232,11 +232,9 @@ class ItemPricing:
                 cost += num_bundles * deal.bundle_price
                 quantity = quantity % deal.size
 
-        # TODO this only works if the deal with a bigger size is better price per item?
         return cost + (quantity * self.item_original_price)
 
 
-# TODO double check this against the table
 pricing_mapping = {
     "A": ItemPricing("A", 50, [BundleDeal(3, 130), BundleDeal(5, 200)]),
     "B": ItemPricing("B", 30, [BundleDeal(2, 45)], FreeItemDeal("E", 2)),
@@ -276,6 +274,3 @@ def checkout(sku: str) -> int:
         else:
             return -1
     return total_cost
-
-
-
