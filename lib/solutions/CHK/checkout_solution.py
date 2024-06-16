@@ -426,9 +426,3 @@ def checkout(sku: str) -> int:
         else:
             return -1
     return total_cost
-
-
-
-
-
-
