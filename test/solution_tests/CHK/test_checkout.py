@@ -94,7 +94,7 @@ class TestCheckout():
         assert checkout_solution.checkout("BE") == 70 # 30 + 40
         assert checkout_solution.checkout("BBE") == 85 # 45 + 40
 
-        # test item B with multiple E's (discounts!) # TODO maybe add more edge cases here
+        # test item B with multiple E's (discounts!)
         assert checkout_solution.checkout("BEE") ==  80 # 0 + 80
         assert checkout_solution.checkout("BBEE") ==  110 # 30 + 2*40
         assert checkout_solution.checkout("BBBEE") ==  125 # 45 + 2*40
@@ -125,12 +125,13 @@ class TestCheckout():
     
     def test_multi(self):
         # test multiple items in the cart, including discounts on A and B
-        # expected result: ?
-        assert checkout_solution.checkout("ABCDABCDA") == 245   
+        # expected result: # 130 + 45 + 40 + 30 + 80
+        assert checkout_solution.checkout("ABCDEABCDEAB") == 325   
         
     def test_invalid(self):
         # test an invalid cart
         assert checkout_solution.checkout("ABZCDE") == -1
+
 
 
 
