@@ -535,6 +535,14 @@ import string
 
 
 class TestCheckout:
+
+    def test_group(self):
+        # test one of each
+        assert checkout_solution.checkout("STXYZ") == 82  # 45 + 20 + 17
+
+        # test multiples
+        assert checkout_solution.checkout("STXYZZST") == 82  # 45 + 20 + 17
+
     def test_A(self):
         # test item A pricing
         assert checkout_solution.checkout("A") == 50
@@ -760,13 +768,12 @@ class TestCheckout:
 
     def test_multi(self):
         # test multiple items in the cart, including discounted items
-        # expected result:  sum of all prices - 21 (price of Z) - 20 (price of S) - 20 (price of T) + 45 (price of one group)
-
-        (S, T, X, Y, Z)
-        assert checkout_solution.checkout(string.ascii_uppercase) == 965
+        # expected result:  853 (sum of all prices) - 21 (price of Z) - 20 (price of S) - 20 (price of T) + 45 (price of one group)
+        assert checkout_solution.checkout(string.ascii_uppercase) == 837
 
     def test_invalid(self):
         # test an invalid cart
         assert checkout_solution.checkout("ABC1DEF") == -1  # with a digit
         assert checkout_solution.checkout("ABCaDEF") == -1  # with a letter case letter
+
 
