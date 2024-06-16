@@ -405,10 +405,16 @@ def checkout(sku: str) -> int:
     total_num_in_group = sum([counts[item] for item in group_deal.group_items])
 
     i = 0
+    group_size = 0
     while i < len(group_items):
-
+        item = group_items[i]
         if counts.get(item, 0):
             i += 1
+        else: 
+            total_cost += (counts[item] // group_deal.group_size) * group_deal.group_price 
+            group_size = 
+            counts[item] = 0
+            total_cost = (num_groups // 
 
     for item in counts.keys():
         if item.isupper():
@@ -416,10 +422,3 @@ def checkout(sku: str) -> int:
         else:
             return -1
     return total_cost
-
-
-
-
-
-
-
