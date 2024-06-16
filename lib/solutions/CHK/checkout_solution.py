@@ -54,21 +54,23 @@ def checkout_R1(sku: str) -> int:
 # noinspection PyUnusedLocal
 # skus = unicode string
 
-def price_calculator(quantity: int, original_price: int, num_required_for_discount: int, discount_bundle_price: int) -> int:
-    num_bundles = quantity // 3
-    num_leftover =  quantity % 3
-    return (num_leftover * 50) + (num_bundles * 130)
+def discounted_price_calculator(quantity: int, original_price: int, num_required_for_discount: int, discount_bundle_price: int) -> int:
+    num_bundles = quantity // num_required_for_discount
+    num_leftover =  quantity % num_required_for_discount
+    return (num_leftover * original_price) + (num_bundles * discount_bundle_price)
+
 def checkout(sku: str) -> int:
     counts = Counter(sku) # returns a sorted dictionary of counts
     total_cost = 0
     for item, quantity in counts.items():
         if item == "A":
             # 3 multi discount
-            num_bundles = quantity // 3
-            num_leftover =  quantity % 3
-            suggested_cost = (num_leftover * 50) + (num_bundles * 130)
+            suggested_cost = discounted_price_calculator(quantity=quantity, original_price=50, num_required_for_discount=3, discount_bundle_price=130)
 
             # 5 multi discount (and possibly the 3 multi discount as well)
+            suggested_cost = (quantity // 5) * 200
+            suggested_cost += discounted_price_calculator(quantity=num_leftover, original_price=50, num_required_for_discount=3, discount_bundle_price=130)
+
             num_bundles = quantity // 5
             num_leftover =  quantity % 5
             suggested_cost = min(suggested_cost, (num_leftover * 50) + (num_bundles * 200))
@@ -92,6 +94,7 @@ def checkout(sku: str) -> int:
             return -1 
     
     return total_cost
+
 
 
 
