@@ -355,7 +355,7 @@ class TestCheckout:
         # test item J multi (no discount)
         assert checkout_solution.checkout("JJ") == 120
 
-    def test_K():
+    def test_K(self):
         # test item K pricing
         assert checkout_solution.checkout("K") == 80
 
@@ -387,7 +387,7 @@ class TestCheckout:
         assert checkout_solution.checkout("MMNNNN") == 160  # 15 + 4*40
         assert checkout_solution.checkout("MMNNNNNN") == 160  # 0 + 4*40
 
-    def test_N():
+    def test_N(self):
         # test item N pricing
         assert checkout_solution.checkout("N") == 40
         # test item N multi (no discount)
@@ -487,14 +487,15 @@ class TestCheckout:
         # test item Z multi (no discount)
         assert checkout_solution.checkout("ZZ") == 100
 
-    def test_multi(self):  # TODO
+    def test_multi(self):
         # test multiple items in the cart, including discounted items
-        # expected result: ?
-        assert checkout_solution.checkout(string.ascii_uppercase) == -1
+        # expected result:  sum of all prices
+        assert checkout_solution.checkout(string.ascii_uppercase) == 1050
 
     def test_invalid(self):
         # test an invalid cart
         assert checkout_solution.checkout("ABC1DEF") == -1
+
 
 
 
