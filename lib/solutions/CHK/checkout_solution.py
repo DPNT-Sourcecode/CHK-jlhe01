@@ -53,6 +53,11 @@ def checkout_R1(sku: str) -> int:
 
 # noinspection PyUnusedLocal
 # skus = unicode string
+
+def price_calculator(quantity: int, original_price: int, num_required_for_discount: int, discount_bundle_price: int) -> int:
+    num_bundles = quantity // 3
+    num_leftover =  quantity % 3
+    return (num_leftover * 50) + (num_bundles * 130)
 def checkout(sku: str) -> int:
     counts = Counter(sku) # returns a sorted dictionary of counts
     total_cost = 0
@@ -63,7 +68,7 @@ def checkout(sku: str) -> int:
             num_leftover =  quantity % 3
             suggested_cost = (num_leftover * 50) + (num_bundles * 130)
 
-            # 5 multi discount
+            # 5 multi discount (and possibly the 3 multi discount as well)
             num_bundles = quantity // 5
             num_leftover =  quantity % 5
             suggested_cost = min(suggested_cost, (num_leftover * 50) + (num_bundles * 200))
@@ -87,6 +92,7 @@ def checkout(sku: str) -> int:
             return -1 
     
     return total_cost
+
 
 
 
