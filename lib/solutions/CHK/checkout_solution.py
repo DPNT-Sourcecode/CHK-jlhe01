@@ -175,17 +175,23 @@ class BundleDeal:
     size: int 
     bundle_price: int 
 
-
-
-
 class ItemPricing:
     def __int__(self, item: str, original_price: int, bundle_deals: t.Optional[t.List[BundleDeal]] = None, free_item_deal: t.Optional[GetOneFreeDeal]= None):
         self.item = item
         self.item_original_price = original_price
+        self.bundle_deals = bundle_deals
+        self.free_item_deal = free_item_deal
     
     def calculate_cost(self, quantities: dict) -> int:
         quantity = quantities[self.item]
-        if 
+        if self.free_item_deal:
+            quantity -= quantities.get(self.free_item_deal.item_label_to_buy, 0)
+
+        if bundle_deals: 
+            for deal in sorted(bundle_deals):
+                num_bundles = quantity // deal.size
+                num_leftover =  quantity % deal.size
+
 
         return quantity * self.item_original_price
 
