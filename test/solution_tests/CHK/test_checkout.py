@@ -34,9 +34,11 @@ class TestCheckout():
 
         # test item D multi (no discount)
         assert checkout_solution.checkout("DD") == 30
+    
     def test_multi(self):
         # test multiple items in the cart, including discounts on A and B
-        assert checkout_solution.checkout("A") == 3    
+        # expected result: 130 + 45 + 40 + 30 
+        assert checkout_solution.checkout("ABCDABCDA") == 245   
         
     def test_invalid(self):
         # test an invalid cart
@@ -53,5 +55,6 @@ class TestCheckout():
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
 
 
