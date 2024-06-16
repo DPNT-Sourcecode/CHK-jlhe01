@@ -264,7 +264,6 @@ import string
 
 
 class TestCheckout:
-
     def test_A(self):
         # test item A pricing
         assert checkout_solution.checkout("A") == 50
@@ -447,19 +446,22 @@ class TestCheckout:
         # test item T multi (no discount)
         assert checkout_solution.checkout("TT") == 40
 
-    # TODO
-    # | U    | 40    | 3U get one U free      |
     def test_U(self):
         # test item U pricing
         assert checkout_solution.checkout("U") == 40
-
         # test item U multi discount
         assert checkout_solution.checkout("UUUU") == 120
-        assert checkout_solution.checkout("UUUUUU") == 40
-        assert checkout_solution.checkout("FFFFFF") == 40
-        assert checkout_solution.checkout("FFFFFFF") == 50
+        assert checkout_solution.checkout("UUUUUUUU") == 240
+        assert checkout_solution.checkout("UUUUUU") == 200  # 120 + 2*40
 
-    # | V    | 50    | 2V for 90, 3V for 130  |
+    def test_V(self):
+        # test item V pricing
+        assert checkout_solution.checkout("V") == 50
+        # test item V multi discount
+        assert checkout_solution.checkout("VV") == 90
+        assert checkout_solution.checkout("VVV") == 130
+        assert checkout_solution.checkout("VVVVV") == 310  # 130 + 180
+        assert checkout_solution.checkout("VVVVVV") == 260
 
     def test_W(self):
         # test item W pricing
@@ -493,6 +495,7 @@ class TestCheckout:
     def test_invalid(self):
         # test an invalid cart
         assert checkout_solution.checkout("ABC1DEF") == -1
+
 
 
 
