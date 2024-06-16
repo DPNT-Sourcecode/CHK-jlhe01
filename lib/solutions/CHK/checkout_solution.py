@@ -1,8 +1,19 @@
 
 from collections import Counter
 
+# -----------------------
+# ---- REQUIREMENT 1 ----
+# -----------------------
 
-# Requirement 1
+# Our price table and offers: 
+# +------+-------+----------------+
+# | Item | Price | Special offers |
+# +------+-------+----------------+
+# | A    | 50    | 3A for 130     |
+# | B    | 30    | 2B for 45      |
+# | C    | 20    |                |
+# | D    | 15    |                |
+# +------+-------+----------------+
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -27,18 +38,10 @@ def checkout_R1(sku: str) -> int:
     
     return total_cost
 
-# Our price table and offers: 
-# +------+-------+----------------+
-# | Item | Price | Special offers |
-# +------+-------+----------------+
-# | A    | 50    | 3A for 130     |
-# | B    | 30    | 2B for 45      |
-# | C    | 20    |                |
-# | D    | 15    |                |
-# +------+-------+----------------+
 
-
-# Requirement 2 
+# -----------------------
+# ---- REQUIREMENT 2 ----
+# -----------------------
 
 # Our price table and offers: 
 # +------+-------+------------------------+
@@ -65,15 +68,13 @@ def checkout(sku: str) -> int:
     for item, quantity in counts.items():
         if item == "A":
             # 3 multi discount
-            suggested_cost = discounted_price_calculator(quantity=quantity, original_price=50, num_required_for_discount=3, discount_bundle_price=130)
+            suggested_cost_3_bundle = discounted_price_calculator(quantity=quantity, original_price=50, num_required_for_discount=3, discount_bundle_price=130)
 
             # 5 multi discount (and possibly the 3 multi discount as well)
-            suggested_cost = (quantity // 5) * 200
-            suggested_cost += discounted_price_calculator(quantity=num_leftover, original_price=50, num_required_for_discount=3, discount_bundle_price=130)
+            suggested_cost_5_bundle = (quantity // 5) * 200
+            suggested_cost_5_bundle += discounted_price_calculator(quantity=quantity % 5, original_price=50, num_required_for_discount=3, discount_bundle_price=130)
 
-            num_bundles = quantity // 5
-            num_leftover =  quantity % 5
-            suggested_cost = min(suggested_cost, (num_leftover * 50) + (num_bundles * 200))
+            suggested_cost = min(suggested_cost_3_bundle, suggested_cost_5_bundle)
 
             # add whichever gives the best deal i.e. favours the customers
             total_cost += suggested_cost
@@ -94,11 +95,4 @@ def checkout(sku: str) -> int:
             return -1 
     
     return total_cost
-
-
-
-
-
-
-
 
